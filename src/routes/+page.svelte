@@ -112,28 +112,32 @@
         };
       } else {
         let api: any = {};
+        let data: any = {};
+
+        const options = {
+          method: "GET",
+          headers: {
+            "Host": new URL(server.host).hostname,
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": "FLC/2.0 (Foundry Lightweight Client)",
+          }
+        };
 
         try {
-          api = await tauri_fetch(server.host + "/api/status", {
-            method: "GET",
-            timeout: 5,
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              "User-Agent": "FLC/2.0 (Foundry Lightweight Client)",
-            },
-          });
+          api = await fetch(server.host + "/api/status", options);
+          data = await api.json();
         } catch (error) {
           console.log(error);
           loading = false;
         } finally {
           if (api.ok) {
             update = {
-              active: api.data.active,
-              status: api.data.active ? "Active" : "Inactive",
-              users: api.data.users,
-              system: api.data.system,
-              systemVersion: api.data.systemVersion,
+              active: data.active,
+              status: data.active ? "Active" : "Inactive",
+              users: data.users,
+              system: data.system,
+              systemVersion: data.systemVersion,
             };
           }
         }
