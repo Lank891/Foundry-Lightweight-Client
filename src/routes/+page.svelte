@@ -2,11 +2,10 @@
   import type { I18n, Server, ServerUpdate } from "$lib/types";
   import { ValidURLScheme, PartnerHostingScheme } from "$lib/types";
 
-  import { fetch as tauri_fetch } from "@tauri-apps/api/http";
   import { appWindow } from "@tauri-apps/api/window";
 
   import { slide } from "svelte/transition";
-  //import { goto } from "$app/navigation";
+
   import { writable } from "svelte/store";
   import { localstore, isWindows, generateUUID } from "$lib/util";
 
@@ -120,7 +119,7 @@
             "Host": new URL(server.host).hostname,
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "User-Agent": "FLC/2.0 (Foundry Lightweight Client)",
+            "User-Agent": "FLC/3.0 (Foundry Lightweight Client)",
           }
         };
 
